@@ -5,23 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-       
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .home {
-            background-color: grey;
-            padding: 50px;
-            max-width: 300px;
-            border-radius: 7px;
-            border: 1px solid black;
-            box-shadow: 1px 1px 35px  black;
-        }
-        .ppm {
-            background-color: burlywood;
+        body{
+            background-color: red;
         }
     </style>
 </head>
@@ -50,7 +35,7 @@
                 <option value="paypal">PayPal</option>
                 <option value="bank">Bank Transfer</option>
             </select>
-        <p>Gender</p>
+        <p>Gender:</p>
         <div class="ppm">
             <label for="visa">Male</label>
             <input type="radio" name="payment" id="visa">
@@ -58,8 +43,17 @@
             <input type="radio" name="payment" id="mastercard">
         </div>
         <br>
-        <input style="background-color: violet;border: none;padding: 10px;border-radius: 6px;" type="submit">
-        <input style="background-color: red;border: none;padding: 10px;border-radius: 6px;" type="reset">
+        <p>What you have??</p>
+        <label for="xbox">NID</label>
+        <input type="checkbox" name="xbox" id="xbox">
+        <label for="ps4">Date Of Birth</label>
+        <input type="checkbox" name="xbox" id="ps4">
+        <br>
+        <br>
+        <input type="file" name="" id="">
+        <input type="submit">
+        <input  type="reset">
+        <hr>
     </div>
 </form>
 </body>
