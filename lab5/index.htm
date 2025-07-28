@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
 </head>
 <body>
     <h2>Registration Form</h2>
-    <form method="post" action="/submit.php" enctype="multipart/form-data">
-
-        Username:   <input type="text" name="username"  value="" id="username" onblur="checkUsername()"  ><br>
+    <form method="post" action="/submit.php" enctype="multipart/form-data" onsubmit="return validateForm(event)">
+        Username:   <input type="text" name="username" value="" id="username"><br>
                     <p id="uError"></p>
         <br>
-        Email:      <input type="text" name="email" value="" id="email">
-
-        
+        Email:      <input type="text" name="email" value="" id="email" required>
+                    <p id="emailError" style="color: red;"></p>
+        <br>
 
         <fieldset>
             <legend>Gender</legend>
@@ -22,14 +23,16 @@
             <label for="female">Female</label>
             <input type="radio" id="others" name="gender" value="others">
             <label for="others">Others</label>
+            <p id="genderError" style="color: red;"></p>
         </fieldset>
         <br>
 
         <fieldset>
             <legend>Date of Birth</legend>
-            <input type="text" name="day" size="2" maxlength="2" placeholder="dd"> /
-            <input type="text" name="month" size="2" maxlength="2" placeholder="mm"> /
-            <input type="text" name="year" size="4" maxlength="4" placeholder="yyyy">
+            <input type="text" name="day" size="2" maxlength="2" placeholder="dd" id="day"> /
+            <input type="text" name="month" size="2" maxlength="2" placeholder="mm" id="month"> /
+            <input type="text" name="year" size="4" maxlength="4" placeholder="yyyy" id="year">
+            <p id="dobError" style="color: red;"></p>
         </fieldset>
         <br>
 
@@ -64,28 +67,82 @@
         <br>
 
         <input type="submit" value="Submit">
-
     </form>
 
     <script>
-        let username = "";
-        let uError = document.getElementById('uError');
+        function validateForm(event) {
+            var email = document.getElementById('email').value;
+            var emailError = document.getElementById('emailError');
+            var genderError = document.getElementById('genderError');
+            var dobError = document.getElementById('dobError');
+            var genderSelected = document.querySelector('input[name="gender"]:checked');
 
-        function checkUsername(){
-                username = document.getElementById('username').value.trim();
-                let words = username.split(/\s+/);
+            var day = document.getElementById('day').value;
+            var month = document.getElementById('month').value;
+            var year = document.getElementById('year').value;
 
-                if(username == ""){
-                    uError.innerHTML = "please type username first!"
-                    uError.style.color = 'red'; 
-                } 
-                      else if (words.length < 2){
-                      uError.innerHTML = "Username must contain at least two words.";
-                      uError.style.color = 'red';   
-                }else{
-                    uError.innerHTML = "";
+            emailError.textContent = "";
+            genderError.textContent = "";
+            dobError.textContent = "";
+
+           
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty.";
+                emailError.style.color = "red";
+                event.preventDefault(); 
+                return false;
+            }      
+
+            var emailParts = email.split('@');
+
+            if (emailParts.length === 2 && emailParts[1] === 'gmail.com') {
+              
+                if (!genderSelected) {
+                    genderError.textContent = "Please select your gender.";
+                    genderError.style.color = "red";
+                    event.preventDefault();
+                    return false;
                 }
+
+    
+                if (day === "" || month === "" || year === "") {
+                    dobError.textContent = "Date of Birth cannot be empty.";
+                    dobError.style.color = "red";
+                    event.preventDefault(); 
+                    return false;
+                }
+
+        
+                if (parseInt(day) < 1 || parseInt(day) > 31 || isNaN(day)) {
+                    dobError.textContent = "Please enter a valid day (01-31).";
+                    dobError.style.color = "red";
+                    event.preventDefault(); 
+                    return false;
+                }
+
+         
+                if (parseInt(month) < 1 || parseInt(month) > 12 || isNaN(month)) {
+                    dobError.textContent = "Please enter a valid month (01-12).";
+                    dobError.style.color = "red";
+                    event.preventDefault(); 
+                    return false;
+                }
+
+                if (parseInt(year) < 1990 || parseInt(year) > 2016 || isNaN(year)) {
+                    dobError.textContent = "Please enter a valid year (1990-2016).";
+                    dobError.style.color = "red";
+                    event.preventDefault(); 
+                    return false;
+                }
+
+                return true;
+            } else {
+                emailError.textContent = "Please enter a valid email address that ends with '@gmail.com'.";
+                emailError.style.color = "red";
+                event.preventDefault(); 
+                return false;
             }
+        }
     </script>
 </body>
 </html>
