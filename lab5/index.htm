@@ -133,6 +133,34 @@
             event.preventDefault(); 
             return false;
         }
+          if (day === "" || month === "" || year === "") {
+            dobError.textContent = "Date of Birth cannot be empty.";
+            dobError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
+        if (parseInt(day) < 1 || parseInt(day) > 31 || isNaN(day)) {
+            dobError.textContent = "Please enter a valid day (01-31).";
+            dobError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
+        if (parseInt(month) < 1 || parseInt(month) > 12 || isNaN(month)) {
+            dobError.textContent = "Please enter a valid month (01-12).";
+            dobError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
+        if (parseInt(year) < 1990 || parseInt(year) > 2016 || isNaN(year)) {
+            dobError.textContent = "Please enter a valid year (1990-2016).";
+            dobError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
 
 
     }
