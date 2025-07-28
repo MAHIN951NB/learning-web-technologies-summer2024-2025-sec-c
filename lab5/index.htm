@@ -97,6 +97,42 @@
         dobError.textContent = "";
         degreeError.textContent = "";
         bloodError.textContent = "";
+         
+                for (var i = 0; i < username.length; i++) {
+            var charCode = username.charCodeAt(i);
+
+
+            if (!((charCode >= 65 && charCode <= 90) ||  
+                  (charCode >= 97 && charCode <= 122) || 
+                  charCode === 45 || 
+                  charCode === 46)) { 
+                usernameError.textContent = "Username must contain only alphabets (A-Z, a-z), hyphens (-), and periods (.).";
+                usernameError.style.color = "red";
+                event.preventDefault();  
+                return false;
+            }
+        }
+
+        if (email === "") {
+            emailError.textContent = "Email cannot be empty.";
+            emailError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
+        var emailParts = email.split('@');
+        if (emailParts.length !== 2 || emailParts[1] !== 'gmail.com') {
+            emailError.textContent = "Please enter a valid email address that ends with '@gmail.com'.";
+            emailError.style.color = "red";
+            event.preventDefault();
+            return false;
+        }
+        if (!genderSelected) {
+            genderError.textContent = "Please select your gender.";
+            genderError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
 
 
     }
