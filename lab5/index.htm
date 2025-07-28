@@ -62,10 +62,10 @@
         <fieldset>
             <legend>Profile Picture</legend>
             <label for="id">ID:</label>
-            <input type="text" id="id" name="id"><br><br>
+            <input type="text" id="id" name="id" required><br><br>
 
             <label for="pic">Picture:</label>
-            <input type="file" id="pic" name="profile_pic">
+            <input type="file" id="pic" name="profile_pic" required>
         </fieldset>
         <br>
 
@@ -73,112 +73,123 @@
     </form>
 
 <script>
-    function validateForm(event) {
-       let username = document.getElementById("username").value;
-        let usernameError = document.getElementById("uError");
-        let email = document.getElementById('email').value;
-        let genderSelected = document.querySelector('input[name="gender"]:checked');
-        let degreeSelected = document.querySelectorAll('input[name="degree"]:checked');
-        let bloodGroup = document.getElementById('blood').value;
+function validateForm(event) {
+    let username = document.getElementById("username").value;
+    let usernameError = document.getElementById("uError");
+    let email = document.getElementById('email').value;
+    let genderSelected = document.querySelector('input[name="gender"]:checked');
+    let degreeSelected = document.querySelectorAll('input[name="degree"]:checked');
+    let bloodGroup = document.getElementById('blood').value;
 
-        let day = document.getElementById('day').value;
-        let month = document.getElementById('month').value;
-        let year = document.getElementById('year').value;
+    let day = document.getElementById('day').value;
+    let month = document.getElementById('month').value;
+    let year = document.getElementById('year').value;
 
-        let emailError = document.getElementById('emailError');
-        let genderError = document.getElementById('genderError');
-        let dobError = document.getElementById('dobError');
-        let degreeError = document.getElementById('degreeError');
-        let bloodError = document.getElementById('bloodError');
+    let emailError = document.getElementById('emailError');
+    let genderError = document.getElementById('genderError');
+    let dobError = document.getElementById('dobError');
+    let degreeError = document.getElementById('degreeError');
+    let bloodError = document.getElementById('bloodError');
+    let profilePic = document.getElementById('pic').files.length;
 
-        usernameError.textContent = "";
-        emailError.textContent = "";
-        genderError.textContent = "";
-        dobError.textContent = "";
-        degreeError.textContent = "";
-        bloodError.textContent = "";
-         
-                for (var i = 0; i < username.length; i++) {
-            var charCode = username.charCodeAt(i);
+    // Clear all error messages
+    usernameError.textContent = "";
+    emailError.textContent = "";
+    genderError.textContent = "";
+    dobError.textContent = "";
+    degreeError.textContent = "";
+    bloodError.textContent = "";
 
-
-            if (!((charCode >= 65 && charCode <= 90) ||  
-                  (charCode >= 97 && charCode <= 122) || 
-                  charCode === 45 || 
-                  charCode === 46)) { 
-                usernameError.textContent = "Username must contain only alphabets (A-Z, a-z), hyphens (-), and periods (.).";
-                usernameError.style.color = "red";
-                event.preventDefault();  
-                return false;
-            }
-        }
-
-        if (email === "") {
-            emailError.textContent = "Email cannot be empty.";
-            emailError.style.color = "red";
-            event.preventDefault(); 
+    // Username validation
+    for (var i = 0; i < username.length; i++) {
+        var charCode = username.charCodeAt(i);
+        if (!((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) || charCode === 45 || charCode === 46)) { 
+            usernameError.textContent = "Username must contain only alphabets (A-Z, a-z), hyphens (-), and periods (.).";
+            usernameError.style.color = "red";
+            event.preventDefault();  
             return false;
         }
-
-        var emailParts = email.split('@');
-        if (emailParts.length !== 2 || emailParts[1] !== 'gmail.com') {
-            emailError.textContent = "Please enter a valid email address that ends with '@gmail.com'.";
-            emailError.style.color = "red";
-            event.preventDefault();
-            return false;
-        }
-        if (!genderSelected) {
-            genderError.textContent = "Please select your gender.";
-            genderError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-          if (day === "" || month === "" || year === "") {
-            dobError.textContent = "Date of Birth cannot be empty.";
-            dobError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-
-        if (parseInt(day) < 1 || parseInt(day) > 31 || isNaN(day)) {
-            dobError.textContent = "Please enter a valid day (01-31).";
-            dobError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-
-        if (parseInt(month) < 1 || parseInt(month) > 12 || isNaN(month)) {
-            dobError.textContent = "Please enter a valid month (01-12).";
-            dobError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-
-        if (parseInt(year) < 1990 || parseInt(year) > 2016 || isNaN(year)) {
-            dobError.textContent = "Please enter a valid year (1990-2016).";
-            dobError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-        
-        if (degreeSelected.length === 0) {
-            degreeError.textContent = "Please select at least one degree.";
-            degreeError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-
-        if (bloodGroup === "") {
-            bloodError.textContent = "Please select a blood group.";
-            bloodError.style.color = "red";
-            event.preventDefault(); 
-            return false;
-        }
-
-        return true; 
-
-
     }
+
+    // Email validation
+    if (email === "") {
+        emailError.textContent = "Email cannot be empty.";
+        emailError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+    var emailParts = email.split('@');
+    if (emailParts.length !== 2 || emailParts[1] !== 'gmail.com') {
+        emailError.textContent = "Please enter a valid email address that ends with '@gmail.com'.";
+        emailError.style.color = "red";
+        event.preventDefault();
+        return false;
+    }
+
+    // Gender validation
+    if (!genderSelected) {
+        genderError.textContent = "Please select your gender.";
+        genderError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    // Date of birth validation
+    if (day === "" || month === "" || year === "") {
+        dobError.textContent = "Date of Birth cannot be empty.";
+        dobError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    if (parseInt(day) < 1 || parseInt(day) > 31 || isNaN(day)) {
+        dobError.textContent = "Please enter a valid day (01-31).";
+        dobError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    if (parseInt(month) < 1 || parseInt(month) > 12 || isNaN(month)) {
+        dobError.textContent = "Please enter a valid month (01-12).";
+        dobError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    if (parseInt(year) < 1990 || parseInt(year) > 2016 || isNaN(year)) {
+        dobError.textContent = "Please enter a valid year (1990-2016).";
+        dobError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    // Degree validation
+    if (degreeSelected.length === 0) {
+        degreeError.textContent = "Please select at least one degree.";
+        degreeError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    // Blood group validation
+    if (bloodGroup === "") {
+        bloodError.textContent = "Please select a blood group.";
+        bloodError.style.color = "red";
+        event.preventDefault(); 
+        return false;
+    }
+
+    // Profile picture validation (new check)
+    if (profilePic === 0) {
+        bloodError.textContent = "Please upload a profile picture.";
+        bloodError.style.color = "red";
+        event.preventDefault();
+        return false;
+    }
+
+    return true;
+}
+
 </script>
 
 
