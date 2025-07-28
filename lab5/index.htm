@@ -92,7 +92,7 @@ function validateForm(event) {
     let bloodError = document.getElementById('bloodError');
     let profilePic = document.getElementById('pic').files.length;
 
-    // Clear all error messages
+    
     usernameError.textContent = "";
     emailError.textContent = "";
     genderError.textContent = "";
@@ -100,7 +100,7 @@ function validateForm(event) {
     degreeError.textContent = "";
     bloodError.textContent = "";
 
-    // Username validation
+
     for (var i = 0; i < username.length; i++) {
         var charCode = username.charCodeAt(i);
         if (!((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122) || charCode === 45 || charCode === 46)) { 
@@ -111,7 +111,7 @@ function validateForm(event) {
         }
     }
 
-    // Email validation
+  
     if (email === "") {
         emailError.textContent = "Email cannot be empty.";
         emailError.style.color = "red";
@@ -126,7 +126,6 @@ function validateForm(event) {
         return false;
     }
 
-    // Gender validation
     if (!genderSelected) {
         genderError.textContent = "Please select your gender.";
         genderError.style.color = "red";
@@ -134,7 +133,6 @@ function validateForm(event) {
         return false;
     }
 
-    // Date of birth validation
     if (day === "" || month === "" || year === "") {
         dobError.textContent = "Date of Birth cannot be empty.";
         dobError.style.color = "red";
@@ -163,7 +161,7 @@ function validateForm(event) {
         return false;
     }
 
-    // Degree validation
+
     if (degreeSelected.length === 0) {
         degreeError.textContent = "Please select at least one degree.";
         degreeError.style.color = "red";
@@ -171,7 +169,7 @@ function validateForm(event) {
         return false;
     }
 
-    // Blood group validation
+
     if (bloodGroup === "") {
         bloodError.textContent = "Please select a blood group.";
         bloodError.style.color = "red";
@@ -179,7 +177,7 @@ function validateForm(event) {
         return false;
     }
 
-    // Profile picture validation (new check)
+   
     if (profilePic === 0) {
         bloodError.textContent = "Please upload a profile picture.";
         bloodError.style.color = "red";
@@ -189,12 +187,7 @@ function validateForm(event) {
 
     return true;
 }
-
 </script>
-
-
-
-
 
 </body>
 </html>
