@@ -160,7 +160,22 @@
             event.preventDefault(); 
             return false;
         }
+        
+        if (degreeSelected.length === 0) {
+            degreeError.textContent = "Please select at least one degree.";
+            degreeError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
 
+        if (bloodGroup === "") {
+            bloodError.textContent = "Please select a blood group.";
+            bloodError.style.color = "red";
+            event.preventDefault(); 
+            return false;
+        }
+
+        return true; 
 
 
     }
