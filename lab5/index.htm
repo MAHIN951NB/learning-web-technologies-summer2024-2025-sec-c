@@ -8,7 +8,7 @@
 <body>
     <h2>Registration Form</h2>
     <form method="post" action="/submit.php" enctype="multipart/form-data" onsubmit="return validateForm(event)">
-        Username:   <input type="text" name="username" value="" id="username"><br>
+        Username:   <input type="text" name="username" value="" id="username" required minlength="2"><br>
                     <p id="uError"></p>
         <br>
         Email:      <input type="text" name="email" value="" id="email" required>
@@ -44,16 +44,19 @@
             <label for="hsc">HSC</label>
             <input type="checkbox" id="bsc" name="degree" value="BSC">
             <label for="bsc">BSC</label>
+            <p id="degreeError" style="color: red;"></p>
         </fieldset>
         <br>
 
         <label for="blood">Blood Group:</label>
         <select name="blood" id="blood">
+            <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
             <option value="O+">O+</option>
         </select>
+        <p id="bloodError" style="color: red;"></p>
         <br><br>
 
         <fieldset>
@@ -69,80 +72,39 @@
         <input type="submit" value="Submit">
     </form>
 
-    <script>
-        function validateForm(event) {
-            var email = document.getElementById('email').value;
-            var emailError = document.getElementById('emailError');
-            var genderError = document.getElementById('genderError');
-            var dobError = document.getElementById('dobError');
-            var genderSelected = document.querySelector('input[name="gender"]:checked');
+<script>
+    function validateForm(event) {
+       let username = document.getElementById("username").value;
+        let usernameError = document.getElementById("uError");
+        let email = document.getElementById('email').value;
+        let genderSelected = document.querySelector('input[name="gender"]:checked');
+        let degreeSelected = document.querySelectorAll('input[name="degree"]:checked');
+        let bloodGroup = document.getElementById('blood').value;
 
-            var day = document.getElementById('day').value;
-            var month = document.getElementById('month').value;
-            var year = document.getElementById('year').value;
+        let day = document.getElementById('day').value;
+        let month = document.getElementById('month').value;
+        let year = document.getElementById('year').value;
 
-            emailError.textContent = "";
-            genderError.textContent = "";
-            dobError.textContent = "";
+        let emailError = document.getElementById('emailError');
+        let genderError = document.getElementById('genderError');
+        let dobError = document.getElementById('dobError');
+        let degreeError = document.getElementById('degreeError');
+        let bloodError = document.getElementById('bloodError');
 
-           
-            if (email === "") {
-                emailError.textContent = "Email cannot be empty.";
-                emailError.style.color = "red";
-                event.preventDefault(); 
-                return false;
-            }      
+        usernameError.textContent = "";
+        emailError.textContent = "";
+        genderError.textContent = "";
+        dobError.textContent = "";
+        degreeError.textContent = "";
+        bloodError.textContent = "";
 
-            var emailParts = email.split('@');
 
-            if (emailParts.length === 2 && emailParts[1] === 'gmail.com') {
-              
-                if (!genderSelected) {
-                    genderError.textContent = "Please select your gender.";
-                    genderError.style.color = "red";
-                    event.preventDefault();
-                    return false;
-                }
+    }
+</script>
 
-    
-                if (day === "" || month === "" || year === "") {
-                    dobError.textContent = "Date of Birth cannot be empty.";
-                    dobError.style.color = "red";
-                    event.preventDefault(); 
-                    return false;
-                }
 
-        
-                if (parseInt(day) < 1 || parseInt(day) > 31 || isNaN(day)) {
-                    dobError.textContent = "Please enter a valid day (01-31).";
-                    dobError.style.color = "red";
-                    event.preventDefault(); 
-                    return false;
-                }
 
-         
-                if (parseInt(month) < 1 || parseInt(month) > 12 || isNaN(month)) {
-                    dobError.textContent = "Please enter a valid month (01-12).";
-                    dobError.style.color = "red";
-                    event.preventDefault(); 
-                    return false;
-                }
 
-                if (parseInt(year) < 1990 || parseInt(year) > 2016 || isNaN(year)) {
-                    dobError.textContent = "Please enter a valid year (1990-2016).";
-                    dobError.style.color = "red";
-                    event.preventDefault(); 
-                    return false;
-                }
 
-                return true;
-            } else {
-                emailError.textContent = "Please enter a valid email address that ends with '@gmail.com'.";
-                emailError.style.color = "red";
-                event.preventDefault(); 
-                return false;
-            }
-        }
-    </script>
 </body>
 </html>
