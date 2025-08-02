@@ -106,8 +106,16 @@
       } else {
         display.value += value;
       }
+      
     }
     }
+    const allButtons = document.querySelectorAll('#calculator-buttons button');
+    allButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const value = button.getAttribute('data-value');
+        updateDisplay(value);
+      });
+    });
 
   </script>
 
