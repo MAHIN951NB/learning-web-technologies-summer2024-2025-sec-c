@@ -1,11 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+    #display {
+      width: 100%;
+      height: 40px;
+      font-size: 24px;
+      text-align: right;
+      padding: 5px;
+      background-color: #f1f1f1;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .buttons button {
+      padding: 20px;
+      font-size: 18px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  </style>
 </head>
 <body>
-    jhj
+
+  <div class="calculator">
+
+    <input type="text" id="display" readonly>
+    <div id="calculator-buttons" class="buttons"></div>
+  </div>
+
+  <script>
+
+    const buttons = [
+      { id: 'btn-7', value: '7' }, { id: 'btn-8', value: '8' }, { id: 'btn-9', value: '9' }, { id: 'btn-plus', value: '+' },
+      { id: 'btn-4', value: '4' }, { id: 'btn-5', value: '5' }, { id: 'btn-6', value: '6' }, { id: 'btn-minus', value: '-' },
+      { id: 'btn-1', value: '1' }, { id: 'btn-2', value: '2' }, { id: 'btn-3', value: '3' }, { id: 'btn-multiply', value: '*' },
+      { id: 'btn-0', value: '0' }, { id: 'btn-dot', value: '.' }, { id: 'btn-clear', value: 'C' }, { id: 'btn-divide', value: '/' },
+      { id: 'btn-equals', value: '=' }
+    ];
+
+
+    const container = document.getElementById('calculator-buttons');
+
+
+    for (let i = 0; i < buttons.length; i++) {
+      const buttonData = buttons[i];
+      const button = document.createElement('button');
+      button.id = buttonData.id;
+      button.textContent = buttonData.value;
+      button.setAttribute('data-value', buttonData.value);
+
+      switch (buttonData.value) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '=':
+          button.classList.add('operator');
+          break;
+        case 'C':
+          button.classList.add('clear');
+          break;
+        case '=':
+          button.classList.add('equals');
+          break;
+        default:
+          break;
+      }
+
+      container.appendChild(button);
+    }
+
+  </script>
+
 </body>
 </html>
