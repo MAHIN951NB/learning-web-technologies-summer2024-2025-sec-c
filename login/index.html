@@ -42,6 +42,7 @@
         .log_op:hover{
             background-color: gray;
             color: black;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -54,14 +55,37 @@
         <div class="info">
             <div class="users common">
                 <label for="users">UserName</label>
-                <input type="text" id="users" readonly minlength="5">
+                <input type="text" id="users" required minlength="5">
             </div>
             <div class="password common">
                 <label for="pass">PassWord</label>
-                <input type="password" readonly minlength="8">
+                <input type="password" id="pass" required minlength="8" placeholder="123" >
             </div>
             <button class="login_btn">LogIN</button>
         </div>
     </div>
+
+
+    <script>
+
+        const correctUsername = "mahi";
+        const correctPassword = "123";
+        const loginButton = document.querySelector('.login_btn');
+        const usernameInput = document.getElementById('users');
+        const passwordInput = document.getElementById('pass');
+
+
+        loginButton.addEventListener('click', function() {
+
+            const enteredUsername = usernameInput.value;
+            const enteredPassword = passwordInput.value;
+
+            if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+                alert('Login success');
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+    </script>
 </body>
 </html>
